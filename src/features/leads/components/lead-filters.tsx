@@ -30,8 +30,9 @@ export function LeadFilters({
   onSort,
   onClear,
 }: Props) {
+  const hasSearch = Boolean(search.trim());
   const activeCount =
-    (search ? 1 : 0) +
+    (hasSearch ? 1 : 0) +
     (status ? 1 : 0) +
     (source ? 1 : 0) +
     (sortOrder === "asc" ? 1 : 0);
@@ -76,7 +77,7 @@ export function LeadFilters({
             onChange={(e) => onSearch(e.target.value)}
             placeholder="Search leads by name, email, or company..."
           />
-          {search && (
+          {hasSearch && (
             <button
               type="button"
               onClick={() => onSearch("")}

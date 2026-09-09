@@ -64,13 +64,13 @@ export const MetricCard = memo(function MetricCard({
   return (
     <div
       className={cn(
-        "group relative flex flex-col justify-between overflow-hidden rounded-xl border border-slate-200/90 bg-white p-4 shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card-hover sm:p-5",
+        "group relative min-w-0 flex flex-col justify-between overflow-hidden rounded-xl border border-slate-200/90 bg-white p-4 shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card-hover sm:p-5",
         currentTone.borderAccent,
       )}
     >
-      <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0 flex-1">
-          <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+      <div className="relative min-w-0 pr-12">
+        <div className="min-w-0">
+          <p className="break-words text-xs font-semibold uppercase tracking-wider text-slate-500">
             {label}
           </p>
           <div className="mt-2 flex items-baseline gap-1">
@@ -79,14 +79,14 @@ export const MetricCard = memo(function MetricCard({
             </span>
           </div>
         </div>
-        <div
-          className={cn(
-            "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border transition-transform duration-200 group-hover:scale-105",
-            currentTone.iconBg,
-          )}
-        >
-          <Icon className={cn("h-5 w-5", currentTone.iconColor)} />
-        </div>
+      </div>
+      <div
+        className={cn(
+          "absolute right-4 top-4 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border transition-transform duration-200 group-hover:scale-105 sm:right-5 sm:top-5",
+          currentTone.iconBg,
+        )}
+      >
+        <Icon className={cn("h-5 w-5", currentTone.iconColor)} />
       </div>
 
       <div className="mt-3.5 pt-2 border-t border-slate-100/80">

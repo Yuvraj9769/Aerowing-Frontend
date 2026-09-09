@@ -34,6 +34,7 @@ export function LeadFormDialog({
     handleSubmit,
     reset,
     setValue,
+    setError,
     watch,
     formState: { errors },
   } = useForm<LeadFormValues>({
@@ -90,6 +91,34 @@ export function LeadFormDialog({
 
   if (!open) return null;
 
+  const handleValidSubmit = (values: LeadFormValues) => {
+    const payload = {
+      ...values,
+      name: values.name.trim(),
+      email: values.email.trim(),
+      phone: values.phone.trim(),
+      company: values.company.trim(),
+    };
+    const requiredTextFields = ["name", "email", "phone", "company"] as const;
+    const emptyField = requiredTextFields.find((field) => !payload[field]);
+
+    if (emptyField) {
+      const fieldLabels = {
+        name: "Name",
+        email: "Email",
+        phone: "Phone",
+        company: "Company",
+      };
+      setError(emptyField, {
+        type: "validate",
+        message: `${fieldLabels[emptyField]} is required.`,
+      });
+      return;
+    }
+
+    onSubmit(payload);
+  };
+
   return (
     <div
       className="fixed inset-0 z-50 flex items-end justify-center bg-slate-950/60 p-0 backdrop-blur-sm transition-opacity sm:items-center sm:p-4"
@@ -144,7 +173,7 @@ export function LeadFormDialog({
 
         <form
           className="space-y-4"
-          onSubmit={handleSubmit((values) => onSubmit(values))}
+          onSubmit={handleSubmit(handleValidSubmit)}
         >
           {/* Full Name */}
           <div>

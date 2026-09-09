@@ -43,7 +43,8 @@ export function Dashboard() {
     source: "",
     sortOrder: "desc",
   });
-  const debouncedSearch = useDebounce(filters.search);
+
+  const debouncedSearch = useDebounce(filters.search.trim());
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState<Lead | null>(null);
   const [deleting, setDeleting] = useState<Lead | null>(null);
@@ -125,7 +126,7 @@ export function Dashboard() {
   );
 
   const hasFilters = Boolean(
-    filters.search ||
+    filters.search.trim() ||
       filters.status ||
       filters.source ||
       filters.sortOrder === "asc",
